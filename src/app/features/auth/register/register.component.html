@@ -1,0 +1,93 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+  <p-card [header]="groupName ? 'Реєстрація в групу ' + groupName : 'Реєстрація'">
+    <div class="logo">
+      <img src="assets/images/dog-logo.svg" alt="logo" />
+    </div>
+    <div class="form-field">
+      <p-floatlabel>
+        <label class="field-label" for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          class="line-border"
+          pInputText
+          setCursorOnFocus
+          formControlName="email"
+          (blur)="onFieldBlur('email')"
+          (focus)="onFieldFocus('email')"
+        />
+      </p-floatlabel>
+    </div>
+
+    @if (!groupId) {
+    <div class="form-field">
+      <p-floatlabel>
+        <label class="field-label" for="password">Пароль</label>
+        <p-password
+          id="password"
+          formControlName="password"
+          inputStyleClass="line-border"
+          [toggleMask]="true"
+          [feedback]="true"
+          (onBlur)="onFieldBlur('password')"
+          (onFocus)="onFieldFocus('password')"
+        ></p-password>
+      </p-floatlabel>
+    </div>
+
+    <div class="form-field">
+      <p-floatlabel>
+        <label class="field-label" for="repeatPassword">Повторіть пароль</label>
+        <p-password
+          id="repeatPassword"
+          inputStyleClass="line-border"
+          formControlName="repeatPassword"
+          [toggleMask]="true"
+          [feedback]="false"
+          (onBlur)="onFieldBlur('repeatPassword')"
+          (onFocus)="onFieldFocus('repeatPassword')"
+        ></p-password>
+      </p-floatlabel>
+    </div>
+
+    <div class="form-field">
+      <p-floatlabel>
+        <label class="field-label" for="ownerName">Ім'я тварини</label>
+        <input
+          id="ownerName"
+          type="text"
+          class="line-border"
+          pInputText
+          formControlName="ownerName"
+          (blur)="onFieldBlur('ownerName')"
+          (focus)="onFieldFocus('ownerName')"
+        />
+      </p-floatlabel>
+    </div>
+    }
+
+    <!-- Error summary section with fixed height -->
+    <div class="form-error-summary flex column gap-xs" [class.has-errors]="registerForm.invalid">
+      @for (error of formControlErrors(); track error) {
+      <p-message severity="error" [text]="error"></p-message>
+      }
+    </div>
+
+    <div class="flex column gap-s">
+      <p-button
+        type="submit"
+        label="Зареєструватися"
+        [disabled]="registerForm.invalid"
+        styleClass="w-full"
+      ></p-button>
+
+      <p-button
+        routerLink="/auth/login"
+        [size]="'small'"
+        label="Увійти"
+        variant="text"
+        severity="info"
+      ></p-button>
+    </div>
+  </p-card>
+</form>

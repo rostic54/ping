@@ -1,0 +1,143 @@
+<div class="profile-container flex column">
+  <p-card header="Profile Settings" class="card-section">
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <!-- User Info Section -->
+      <div class="mb-4">
+        <div class="form-field">
+          <p-floatlabel>
+            <label class="field-label" for="ownerName">Імʼя власника</label>
+            <input
+              id="ownerName"
+              type="text"
+              class="line-border"
+              pInputText
+              setCursorOnFocus
+              formControlName="ownerName"
+              (blur)="onFieldBlur('ownerName')"
+              (focus)="onFieldFocus('ownerName')"
+            />
+          </p-floatlabel>
+          @if (isFieldInvalid('ownerName')) {
+          <small class="p-error block mt-1">Owner name is required</small>
+          }
+        </div>
+
+        <div class="form-field">
+          <p-floatlabel>
+            <label class="field-label" for="email">Ел. Пошта</label>
+            <input
+              id="email"
+              type="text"
+              class="line-border"
+              pInputText
+              setCursorOnFocus
+              formControlName="email"
+              (blur)="onFieldBlur('email')"
+              (focus)="onFieldFocus('email')"
+            />
+          </p-floatlabel>
+          @if (isFieldInvalid('email')) {
+          <small class="p-error block mt-1">Email is required</small>
+          }
+        </div>
+      </div>
+
+      <!-- Pet Info Section -->
+      <div class="list-wrap" formArrayName="pets">
+        <h2 class="list-title">Ваші улюбленці:</h2>
+        <p-accordion [value]="['0']" [multiple]="true">
+          @for ( pet of pets.controls; track pet.value.name ; let i = $index) {
+          <p-accordion-panel [formGroupName]="i" value="{{i}}">
+            <p-accordion-header>Header I</p-accordion-header>
+            <p-accordion-content>
+              <div class="item-wrap" >
+                <!-- <i class="pi pi-times" (click)="removePet(i)"></i> -->
+                <div class="form-field">
+                  <p-floatlabel>
+                    <label class="field-label" for="name">Імʼя вашого улюбленця</label>
+                    <input
+                      id="name"
+                      type="text"
+                      class="line-border"
+                      pInputText
+                      setCursorOnFocus
+                      formControlName="name"
+                      (blur)="onFieldBlur('name', i)"
+                      (focus)="onFieldFocus('name', i)"
+                    />
+                    Instantly becoming an expert in debugging someone else's undocumented legacy code... without losing my sanity. That would be a true superpower.
+                    
+                  </p-floatlabel>
+                  @if (isFieldInvalid('name', i)) {
+                  <small class="p-error block mt-1">Pet name is required</small>
+                  }
+                </div>
+
+                <div class="form-field">
+                  <p-floatlabel>
+                    <label class="field-label" for="type">Порода</label>
+                    <input
+                      id="type"
+                      type="text"
+                      class="line-border"
+                      pInputText
+                      setCursorOnFocus
+                      formControlName="type"
+                      (blur)="onFieldBlur('type', i)"
+                      (focus)="onFieldFocus('type', i)"
+                    />
+                  </p-floatlabel>
+                  @if (isFieldInvalid('type', i)) {
+                  <small class="p-error block mt-1">Brit is required</small>
+                  }
+                </div>
+                <div class="control-btn flex gap-xs">
+                  <p-button
+                    label="Зберігти"
+                    icon="pi pi-save"
+                    variant="outlined"
+                    severity="success"
+                    (click)="savePet(i)"
+                    [disabled]="(!pet.value?.name && !pet.value?.type) || !pet.dirty || pet.invalid"
+                  ></p-button>
+                  <p-button
+                    icon="pi pi-trash"
+                    variant="outlined"
+                    severity="danger"
+                    (click)="deletePet(i)"
+                  ></p-button>
+                  <p-button
+                    icon="pi pi-eraser"
+                    variant="outlined"
+                    severity="warn"
+                    (click)="clearPetForm(i)"
+                    [disabled]="!pet.value.name && !pet.value.type"
+                  ></p-button>
+                </div>
+              </div>
+            </p-accordion-content>
+          </p-accordion-panel>
+          }
+        </p-accordion>
+        <div class="plus-btn">
+          <p-button
+            icon="pi pi-plus"
+            label="додати улюбленця"
+            variant="outlined"
+            severity="info"
+            (click)="addPet()"
+            [disabled]="(!pets.touched && !pets.valid) || !pets.pristine"
+          ></p-button>
+        </div>
+      </div>
+
+      <div class="flex column">
+        <p-button
+          type="submit"
+          [disabled]="!profileForm.valid || !profileForm.dirty"
+          label="Save Changes"
+        ></p-button>
+      </div>
+    </form>
+  </p-card>
+</div>

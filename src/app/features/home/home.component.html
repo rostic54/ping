@@ -1,0 +1,34 @@
+<div class="home-container">
+      <div class="swipe-button-container">
+          <div id="cta">
+            <span class="arrow primera left"></span>
+            <span class="arrow segunda left"></span>
+        </div>
+        <button
+          class="swipe-button"
+          [style.transform]="transformStyle()"
+          (mousedown)="startDrag($event)"
+          (touchstart)="startDrag($event)"
+          (mousemove)="onDrag($event)"
+          (touchmove)="onDrag($event)"
+          (mouseup)="endDrag()"
+          (touchend)="endDrag()"
+          (mouseleave)="endDrag()"
+        >
+          Go
+        </button>
+          <div id="cta">
+            <span class="arrow primera right"></span>
+            <span class="arrow segunda right"></span>
+        </div>
+      </div>
+      
+      <div class="action-hints">
+        <div class="hint left" [class.active]="isSwipingLeft()">
+          👈 Notify
+        </div>
+        <div class="hint right" [class.active]="isSwipingRight()">
+          Edit 👉
+        </div>
+      </div>
+    </div>

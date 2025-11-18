@@ -1,12 +1,16 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
+import { ToastModule } from 'primeng/toast';
+import { AuthService } from './core/services/auth.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
+  standalone: true,
+  imports: [RouterOutlet, NavBarComponent, ToastModule],
+  templateUrl: './app.component.html',
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('walk-ping');
+  isAuthenticated: Signal<boolean> = inject(AuthService).isAuthenticated;
 }

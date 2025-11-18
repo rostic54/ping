@@ -1,0 +1,6 @@
+main {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--p-primary-500);
+  height: calc(100vh - 60px);
+}

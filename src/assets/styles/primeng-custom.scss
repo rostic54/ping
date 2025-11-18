@@ -1,0 +1,114 @@
+/* Глобальні стилі для PrimeNG компонентів */
+// :root {
+//   --primary-color: #121f2d;
+//   --surface-ground: #f8f9fa;
+//   --surface-card: #ffffff;
+//   --surface-border: #dee2e6;
+//   --text-color: #495057;
+//   --text-color-secondary: #6c757d;
+
+// }
+
+@layer primeng, app-styles;
+
+// Reassign of PrimeNG variables with emphasis on app-styles layer
+// to ensure they override default PrimeNG styles
+@layer app-styles {
+  .p-inputtext:enabled:focus {
+    --p-inputtext-focus-border-color: var(--p-primary-700);
+  }
+
+  .p-button {
+    width: 100%;
+    --p-button-primary-color: var(--p-text-primary-color);
+    --p-button-primary-background: var(--p-primary-600);   
+
+    // INFO button styles
+    --p-button-outlined-info-border-color: var(--p-info-border-color);
+    --p-button-outlined-info-color: var(--p-info-color);
+    &:not(:disabled):active {
+      --p-button-primary-active-background: var(--p-primary-200);
+      --p-button-primary-active-color: var(--p-primary-400);
+    }
+    &:not(:disabled):hover {
+      --p-button-primary-hover-background: var(--p-primary-700);
+      --p-button-primary-hover-color: var(--p-primary-400);
+    }
+
+    &.dark {
+      --p-button-primary-color: var(--p-primary-900);
+      --p-button-primary-border-color: var(--p-primary-900);
+
+      &:not(:disabled):active {
+        --p-button-primary-active-background: var(--p-primary-200);
+        --p-button-primary-active-color: var(--p-primary-200);
+      }
+      &:not(:disabled):hover {
+        --p-button-primary-hover-background: var(--p-primary-600);
+        --p-button-primary-hover-color: var(--p-primary-200);
+      }
+    }
+  }
+  .p-floatlabel {
+    // reassign top value for label when input is focused or has value
+    --p-floatlabel-over-active-top: -0.9rem;
+    --p-floatlabel-focus-color: var(--p-primary-700);
+  }
+}
+
+/* Загальні стилі форм */
+
+.field-label {
+  margin-bottom: 10px;
+}
+
+.line-border {
+  &.p-inputtext,
+  &.p-password {
+    background-color: transparent;
+    border-width: 0 0 1px 0;
+    border-radius: 0;
+  }
+}
+
+.p-inputtext,
+.p-password,
+.p-dropdown {
+  width: 100%;
+}
+
+.p-button {
+  &.p-button-lg {
+    padding: 1rem 2rem;
+  }
+}
+
+/* Стилі для карток */
+.p-card {
+  .p-card-header {
+    border-bottom: 1px solid var(--p-surface-border);
+    padding: 1.5rem;
+    background: var(--p-surface-ground);
+  }
+
+  .p-card-content {
+    padding: 1.5rem;
+  }
+
+  &.main {
+    box-shadow: 0px 0px 0px 1px var(--p-primary-800), inset 0 0 7px 0px var(--p-primary-900);
+    border-radius: 40px;
+    padding: 10px;
+    background: var(--p-primary-400);
+  }
+}
+
+/* Стилі для повідомлень про помилки */
+.p-error {
+  position: absolute;
+  top: 35px;
+  left: 5px;
+  color: var(--p-danger-color);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}

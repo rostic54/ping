@@ -1,1 +1,51 @@
 /* You can add global styles to this file, and also import other style files */
+// @import "primeng/resources/themes/Aura/theme.css";
+// @import "primeng/resources/primeng.css";
+// @import "primeicons/primeicons.css";
+
+html,
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  height: 100%;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+
+  &.column {
+    flex-direction: column;
+  }
+
+  &.center {
+    align-items: center;
+  }
+
+  &.middle {
+    justify-content: center;
+  }
+
+  &.space-between {
+    justify-content: space-between;
+  }
+  
+  &.space-around {
+    justify-content: space-around;
+  }
+}
+
+.gap-xs {
+  gap: 0.5rem;
+}
+
+.gap-s {
+  gap: 1rem;
+}
+
+.gap-m {
+  gap: 1.5rem;
+}
