@@ -1,13 +1,13 @@
 
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { GroupService } from '../../../core/services/group.service';
+import { GroupService } from '../../../../core/services/group.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
-import { GroupFullInfo } from '../../../core/interfaces/group-full-info.interface';
-import { UserStateService } from '../../../core/services/store/user-state.service';
+import { GroupFullInfo } from '../../../../core/interfaces/group-full-info.interface';
+import { UserStateService } from '../../../../core/services/store/user-state.service';
 
 @Component({
   selector: 'app-group-list',
@@ -30,7 +30,7 @@ export class GroupList {
 
   viewGroupDetails(groupId: string): void {
     console.log('View group details:', groupId);
-    this.#router.navigate(['/settings/group-details', groupId]);
+    this.#router.navigate(['/settings/group', groupId]);
   }
 
   isGroupOwner(group: GroupFullInfo): boolean {

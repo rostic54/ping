@@ -5,3 +5,6 @@ export * from './login-credentials.interface';
 export * from './register-credentials.interface';
 export * from './api-response';
 export * from './message-response';
+export * from './group-member.interface';
+export * from './group-full-info.interface';
+export * from './invite-token.interface';

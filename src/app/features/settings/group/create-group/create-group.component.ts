@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { GroupFormComponent, GroupFormData } from '../group-form/group-form.component';
-import { GroupService } from '../../../core/services/group.service';
-import { ToasterService } from '../../../core/services/utils/toaster.service';
+import { GroupService } from '../../../../core/services/group.service';
+import { ToasterService } from '../../../../core/services/utils/toaster.service';
 
 @Component({
   selector: 'app-create-group',

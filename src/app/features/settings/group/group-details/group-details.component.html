@@ -1,0 +1,102 @@
+@if (isLoading()) {
+<div class="loading-container">
+  <p>Loading group details...</p>
+</div>
+} @else if (error()) {
+<div class="error-container">
+  <p>Error loading group details: {{ error() }}</p>
+  <p-button label="Back to Groups" severity="secondary" (click)="goBack()"> </p-button>
+</div>
+} @else if (groupData()) {
+<div class="group-details-header flex space-between">
+  <p-button
+    label="Back"
+    icon="pi pi-arrow-left"
+    severity="secondary"
+    size="small"
+    (click)="goBack()"
+  >
+  </p-button>
+  <p-button
+    label="Add Member"
+    icon="pi pi-qrcode"
+    severity="secondary"
+    size="small"
+    (click)="showQrCode()"
+  >
+  </p-button>
+  <p-button
+    label="Group Info"
+    icon="pi pi-eye"
+    severity="secondary"
+    size="small"
+    (click)="showGroupInfo()"
+  >
+  </p-button>
+</div>
+
+<div class="member-list flex column gap-m">
+  <h2>Group Members</h2>
+  @if (groupData()!.members.length === 0) {
+  <p>No members in this group.</p>
+  } @else {
+  <p-accordion [multiple]="true" class="member-accordion">
+    @for (member of groupData()!.members; track member.id; let i = $index) {
+    <p-accordion-panel [value]="i">
+      <p-accordion-header>
+        <div class="flex align-items-center gap-3">
+          <div class="user-avatar">
+            <div
+              class="w-3rem h-3rem border-circle bg-primary-100 flex align-items-center justify-content-center"
+            >
+              <i class="pi pi-user text-primary-600"></i>
+            </div>
+          </div>
+          <div>
+            <span class="font-semibold">{{ member.ownerName }}</span>
+            <div class="text-sm text-color-secondary">
+              {{ member.pets.length }} pet{{ member.pets.length !== 1 ? 's' : '' }}
+            </div>
+          </div>
+        </div>
+      </p-accordion-header>
+      <p-accordion-content>
+        <div class="pets-list">
+          @if (member.pets.length === 0) {
+          <p class="text-color-secondary">No pets registered</p>
+          } @else {
+          <div class="flex column gap-s">
+            @for (pet of member.pets; track pet.id) {
+            <div class="pet-row p-3">
+              <div class="flex align-items-center align-center gap-3">
+                <div class="pet-image flex center">
+                  <img src="assets/images/dog.png" alt="dog" />
+                </div>
+                <div>
+                  <div class="font-medium">
+                    {{ pet.name }} 
+                    (<span class="text-sm text-color-secondary">{{ pet.type }}</span>)
+                  </div>
+                </div>
+              </div>
+            </div>
+            }
+          </div>
+          }
+        </div>
+      </p-accordion-content>
+    </p-accordion-panel>
+    }
+  </p-accordion>
+  }
+</div>
+
+<!-- QR Generator Popup -->
+<app-qr-generator
+  [visible]="showQrDialog()"
+  [groupId]="groupId()"
+  [groupName]="groupData()?.name || ''"
+  [inviteToken]="inviteToken()"
+  (visibleChange)="onQrDialogClose()"
+/>
+}

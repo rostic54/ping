@@ -17,7 +17,7 @@ import { ButtonModule } from 'primeng/button';
 import { FloatLabel } from 'primeng/floatlabel';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { DividerModule } from 'primeng/divider';
-import { GroupFullInfo } from '../../../core/interfaces/group-full-info.interface';
+import { GroupFullInfo } from '../../../../core/interfaces/group-full-info.interface';
 
 export type FormMode = 'create' | 'edit' | 'view';
 

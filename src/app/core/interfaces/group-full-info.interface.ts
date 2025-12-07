@@ -1,4 +1,5 @@
 import { UserRole } from "../enums/user-role.enum";
+import { GroupMember } from "./group-member.interface";
 
 
 export interface GroupFullInfo {
@@ -7,7 +8,7 @@ export interface GroupFullInfo {
   description?: string;
   maxMembers: number;
   memberCount: number;
-  members: UserRole[];
+  members: GroupMember[];
   latitude: number;
   longitude: number;
 //   inviteTokens: Array<{
