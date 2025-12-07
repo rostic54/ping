@@ -3,6 +3,13 @@
 // @import "primeng/resources/primeng.css";
 // @import "primeicons/primeicons.css";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Import common component styles
+@import "./assets/styles/card-primeNg.scss";
+
 html,
 body {
   font-family: 'Roboto', sans-serif;

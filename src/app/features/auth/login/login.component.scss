@@ -48,16 +48,12 @@
 }
 
 :host ::ng-deep {
-  .p-card {
-    .p-card-header {
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
-  }
-
   .text-secondary {
     color: var(--text-color-secondary);
     font-size: 0.875rem;
+  }
+
+  .p-floatlabel label{
+    color: var(--p-primary-700);
   }
 }

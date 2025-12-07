@@ -47,10 +47,10 @@
         <h2 class="list-title">Ваші улюбленці:</h2>
         <p-accordion [value]="['0']" [multiple]="true">
           @for ( pet of pets.controls; track pet.value.name ; let i = $index) {
-          <p-accordion-panel [formGroupName]="i" value="{{i}}">
+          <p-accordion-panel [formGroupName]="i" value="{{ i }}">
             <p-accordion-header>Header I</p-accordion-header>
             <p-accordion-content>
-              <div class="item-wrap" >
+              <div class="item-wrap">
                 <!-- <i class="pi pi-times" (click)="removePet(i)"></i> -->
                 <div class="form-field">
                   <p-floatlabel>
@@ -65,8 +65,6 @@
                       (blur)="onFieldBlur('name', i)"
                       (focus)="onFieldFocus('name', i)"
                     />
-                    Instantly becoming an expert in debugging someone else's undocumented legacy code... without losing my sanity. That would be a true superpower.
-                    
                   </p-floatlabel>
                   @if (isFieldInvalid('name', i)) {
                   <small class="p-error block mt-1">Pet name is required</small>
@@ -131,12 +129,13 @@
         </div>
       </div>
 
-      <div class="flex column">
+      <div class="flex column gap-xs">
         <p-button
           type="submit"
           [disabled]="!profileForm.valid || !profileForm.dirty"
           label="Save Changes"
         ></p-button>
+        <p-button label="Sign Out" variant="text" severity="warn" (click)="signOut()" />
       </div>
     </form>
   </p-card>

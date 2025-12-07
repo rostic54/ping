@@ -77,13 +77,21 @@
   width: 100%;
 }
 
+/* BUTTONS */
+
 .p-button {
   &.p-button-lg {
     padding: 1rem 2rem;
   }
+
+  &-text {
+    &.p-button-warn:not(:disabled):hover {
+      background-color: transparent!important;
+    }
+  }
 }
 
-/* Стилі для карток */
+/* CARDS */
 .p-card {
   .p-card-header {
     border-bottom: 1px solid var(--p-surface-border);

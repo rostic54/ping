@@ -1,0 +1,126 @@
+:host {
+  display: block;
+}
+
+.group-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+
+  h2 {
+    margin: 0;
+    color: var(--p-primary-700);
+    font-size: 1.5rem;
+  }
+}
+
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  padding: 2rem;
+
+  .empty-content {
+    text-align: center;
+    max-width: 400px;
+
+    .empty-icon {
+      font-size: 4rem;
+      color: var(--p-surface-400);
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      color: var(--p-text-color);
+      margin: 0 0 1rem 0;
+      font-size: 1.3rem;
+    }
+
+    p {
+      color: var(--p-text-muted-color);
+      margin: 0 0 2rem 0;
+      line-height: 1.5;
+    }
+  }
+}
+
+.group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  gap: 1rem;
+
+  .card-title {
+    flex: 1;
+    margin-bottom: 0;
+  }
+}
+
+.group-status {
+  .status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    &.active {
+      background: var(--p-green-100);
+      color: var(--p-green-700);
+    }
+
+    &.inactive {
+      background: var(--p-red-100);
+      color: var(--p-red-700);
+    }
+  }
+}
+
+.group-stats {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--p-text-muted-color);
+
+    .stat-icon {
+      font-size: 0.9rem;
+      color: var(--p-primary-500);
+      width: 1rem;
+      text-align: center;
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .group-list-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    h2 {
+      font-size: 1.3rem;
+    }
+  }
+
+  .group-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .group-status {
+    align-self: flex-end;
+  }
+}

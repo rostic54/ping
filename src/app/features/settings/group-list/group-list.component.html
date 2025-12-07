@@ -1,0 +1,78 @@
+<div class="card-container">
+  <div class="group-list-header">
+    <h2>My Groups</h2>
+    <p-button 
+      label="Create New Group" 
+      icon="pi pi-plus" 
+      severity="secondary"
+      size="small"
+      (click)="createGroup()">
+    </p-button>
+  </div>
+
+  @if (groupList().length === 0) {
+    <div class="empty-state">
+      <div class="empty-content">
+        <i class="pi pi-users empty-icon"></i>
+        <h3>No Groups Found</h3>
+        <p>You haven't joined any groups yet. Create your first group to get started!</p>
+        <p-button 
+          label="Create Your First Group" 
+          icon="pi pi-plus" 
+          (click)="createGroup()">
+        </p-button>
+      </div>
+    </div>
+  } @else {
+    <div class="flex flec-column gap-m">
+      @for (group of groupList(); track group.id) {
+        <div class="w-full" (click)="viewGroupDetails(group.id)">
+          <p-card class="app-styled-card">
+            <div class="card-content">
+              <div class="group-header">
+                <h3 class="card-title">{{ group.name }}</h3>
+                <div class="group-status">
+                  <span 
+                    class="status-badge" 
+                    [class.active]="group.isActive" 
+                    [class.inactive]="!group.isActive">
+                    {{ group.isActive ? 'Active' : 'Inactive' }}
+                  </span>
+                </div>
+              </div>
+              
+              @if (group.description) {
+                <p class="card-description">{{ group.description }}</p>
+              }
+              
+              <div class="group-stats">
+                <div class="stat-item">
+                  <i class="pi pi-users stat-icon"></i>
+                  <span>{{ group.memberCount }}/{{ group.maxMembers }} members</span>
+                </div>
+                <div class="stat-item">
+                  <i class="pi pi-calendar stat-icon"></i>
+                  <span>Created {{ group.createdAt | date:'mediumDate' }}</span>
+                </div>
+              </div>
+              
+              <div class="card-tags">
+                @if (group.memberCount === group.maxMembers) {
+                  <span class="card-tag warning">Full</span>
+                } @else {
+                  <span class="card-tag success">{{ group.maxMembers - group.memberCount }} spots left</span>
+                }
+                
+                @if (isGroupOwner(group)) {
+                  <span class="card-tag primary">Owner</span>
+                } @else {
+                  <span class="card-tag info">Member</span>
+                }
+              </div>
+            </div>
+          </p-card>
+        </div>
+      }
+    </div>
+  }
+</div>

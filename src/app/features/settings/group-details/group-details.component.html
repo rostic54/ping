@@ -1,0 +1,48 @@
+@if (isLoading()) {
+  <div class="loading-container">
+    <p>Loading group details...</p>
+  </div>
+} @else if (error()) {
+  <div class="error-container">
+    <p>Error loading group details: {{ error() }}</p>
+    <p-button 
+      label="Back to Groups" 
+      severity="secondary"
+      (click)="goBack()">
+    </p-button>
+  </div>
+} @else if (groupData()) {
+  <div class="group-details-header">
+    <p-button 
+      label="Back" 
+      icon="pi pi-arrow-left" 
+      severity="secondary"
+      size="small"
+      (click)="goBack()">
+    </p-button>
+    
+    @if (mode() === 'view') {
+      <p-button 
+        label="Edit Group" 
+        icon="pi pi-pencil"
+        size="small"
+        (click)="switchToEditMode()">
+      </p-button>
+    } @else {
+      <p-button 
+        label="Cancel Edit" 
+        severity="secondary"
+        size="small"
+        (click)="cancelEdit()">
+      </p-button>
+    }
+  </div>
+
+  <app-group-form
+    [mode]="mode()"
+    [groupData]="groupData() || null"
+    [isLoading]="isUpdateLoading()"
+    (formSubmit)="onUpdateGroup($event)"
+    (formCancel)="onCancel()">
+  </app-group-form>
+}

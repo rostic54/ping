@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { catchError, filter, map, Observable, of, switchMap, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { User } from '../interfaces';
+import { MessageResponse, User } from '../interfaces';
 import { TokenService } from './token.service';
 import { UserStateService } from './store/user-state.service';
 
@@ -77,8 +77,11 @@ export class AuthService {
     return true;
   }
 
-  logout(): void {
-    this.setUser(null);
+  signOut(): Observable<MessageResponse> {
+    return this.httpClient.post<MessageResponse>(`${environment.apiUrl}/auth/logout`, {}).pipe(
+      tap(() => this.setUser(null))
+    );
+    
   }
 
   getUserInfo(): Observable<User | null> {

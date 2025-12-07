@@ -7,13 +7,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DividerModule } from 'primeng/divider';
 import { AuthService } from '../../core/services/auth.service';
 import { MessageService } from 'primeng/api';
-import { User } from '../../core/interfaces';
+import { MessageResponse, User } from '../../core/interfaces';
 import { FloatLabel } from 'primeng/floatlabel';
 import { Profile, PetInfo } from '../../core/interfaces/index';
 import { CursorOnFocusDirective } from '../../core/directives/cursor-on-focus.directive';
 import { UserStateService } from '../../core/services/store/user-state.service';
 import { UserService } from '../../core/services/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { hasUnchangedValue } from '../../core/form-validators/form-equality.validator';
 import { normalizeFormValue } from '../../core/form-validators/validator-utils';
@@ -37,7 +37,7 @@ interface ProfileRouteData {
     DividerModule,
     FloatLabel,
     CursorOnFocusDirective,
-    AccordionModule
+    AccordionModule,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
@@ -45,13 +45,14 @@ interface ProfileRouteData {
 export class ProfileComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private readonly authService = inject(AuthService);
   private readonly messageService = inject(MessageService);
   readonly #userStateService = inject(UserStateService);
   readonly #userService = inject(UserService);
   readonly #resolverData = toSignal(this.route.data) as () => ProfileRouteData | undefined;
 
-  // readonly #userData = 
+  // readonly #userData =
 
   profileForm: FormGroup = this.fb.group({
     ownerName: ['', [Validators.required]],
@@ -76,7 +77,7 @@ export class ProfileComponent implements OnInit {
       const userData = stateUser || resolverUser;
       console.log('User data was updated: ', userData);
       if (userData) {
-         this.populateForm(userData);
+        this.populateForm(userData);
       }
     });
   }
@@ -93,7 +94,6 @@ export class ProfileComponent implements OnInit {
   }
 
   private populateForm(userData: User): void {
-    // Оновлюємо основні поля
     this.profileForm.patchValue(
       {
         ownerName: userData.ownerName,
@@ -102,7 +102,6 @@ export class ProfileComponent implements OnInit {
       { emitEvent: false }
     );
 
-    // Очищуємо та заповнюємо pets
     this.pets.clear();
 
     userData.pets?.forEach((pet: PetInfo) => {
@@ -124,6 +123,9 @@ export class ProfileComponent implements OnInit {
     console.log('Form populated with pets:', this.pets.controls.length);
   }
 
+  /*************************
+  **        ACTIONS       **
+  **************************/
   addPet(): void {
     this.pets.push(this.createPetFormGroup());
     this.profileForm.markAsDirty();
@@ -173,6 +175,18 @@ export class ProfileComponent implements OnInit {
         : this.profileForm.get(fieldName);
 
     return control ? control.invalid && (control.dirty || control.touched) : false;
+  }
+
+  signOut(): void {
+    this.authService.signOut().subscribe((response: MessageResponse) => {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Signed Out',
+        detail: response.message || 'You have been signed out successfully.',
+      });
+
+      this.router.navigate(['/auth/login']);
+    });
   }
 
   async onSubmit() {

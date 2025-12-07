@@ -18,6 +18,11 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'settings',
+    loadChildren: () => import('./features/settings/settings.routes').then(m => m.SETTINGS_ROUTES),
+    canActivate: [authGuard]
+  },
+  {
     path: 'qr',
     loadComponent: () => import('./features/qr/qr-generator/qr-generator.component').then(m => m.QrGeneratorComponent)
   },
