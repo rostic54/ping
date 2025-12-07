@@ -38,7 +38,7 @@ export class GroupDetailsComponent {
   readonly inviteToken = signal<string>('');
 
   readonly groupId = toSignal(
-    this.route.paramMap.pipe(switchMap((params) => of(params.get('id')))), { initialValue: '' }
+    this.route.paramMap.pipe(switchMap((params) => of(params.get('id') || ''))), { initialValue: '' }
   );
 
   readonly groupData = toSignal(this.groupService.getGroupsById(this.groupId()!), {
