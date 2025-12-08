@@ -94,6 +94,7 @@ export class ProfileComponent implements OnInit {
   }
 
   private populateForm(userData: User): void {
+    this.pets.clear();
     this.profileForm.patchValue(
       {
         ownerName: userData.ownerName,
@@ -101,8 +102,6 @@ export class ProfileComponent implements OnInit {
       },
       { emitEvent: false }
     );
-
-    this.pets.clear();
 
     userData.pets?.forEach((pet: PetInfo) => {
       this.pets.push(

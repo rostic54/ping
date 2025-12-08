@@ -1,5 +1,4 @@
 import { Component, computed, input, signal, effect, output } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import QRCode from 'qrcode';
@@ -7,7 +6,7 @@ import QRCode from 'qrcode';
 @Component({
   selector: 'app-qr-generator',
   standalone: true,
-  imports: [NgOptimizedImage, DialogModule, ButtonModule],
+  imports: [ DialogModule, ButtonModule],
   template: `
     <p-dialog 
       [visible]="visible()" 
@@ -15,7 +14,7 @@ import QRCode from 'qrcode';
       header="QR код для приєднання до групи"
       [modal]="true"
       [style]="{width: '450px'}"
-      [closable]="true">
+      [closeOnEscape]="true">
       
       <div class="qr-container">
         <p>Поділіться цим QR-кодом</p>
@@ -24,7 +23,7 @@ import QRCode from 'qrcode';
         <div class="qr-image">
           @if (qrImageUrl(); as url) {
             <img 
-              [ngSrc]="url" 
+              [src]="url" 
               [width]="250" 
               [height]="250" 
               alt="QR код для приєднання до групи"
@@ -113,6 +112,7 @@ export class QrGeneratorComponent {
   }
 
   onClose(): void {
+    console.log('CLOSE QR MODAL')
     this.visibleChange.emit(false);
   }
 
